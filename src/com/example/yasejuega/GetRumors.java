@@ -74,7 +74,7 @@ public class GetRumors extends AsyncTask<String, Void, String> {
     	//See what hat i'm getting from the DB through JSON.
     	Log.i("JsonFetchRumors", jObject.toString());
     	//Add rumors to the adapter.
-    	//adapter.addItems(jObject);
+    	adapter.addItems(jObject);
     }
     void resetAdapter() {
     	adapter.notifyDataSetChanged();
