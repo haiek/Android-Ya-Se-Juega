@@ -23,7 +23,7 @@
     </style>
 
     <!-- ActionBar styles -->
-    <drawable name="actionbar_background">#bd2623</drawable>
+    <drawable name="actionbar_background">#FF4444</drawable>
     <style name="MyActionBar" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/actionbar_background</item>
     </style>

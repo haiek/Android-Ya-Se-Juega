@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- USE THIS FOR SEARCH ON THE ACTION BAR
     <item android:id="@+id/search"
           android:title="@string/search_title"
           android:icon="@drawable/ic_action_search"
           android:showAsAction="collapseActionView|ifRoom"
           android:actionViewClass="android.widget.SearchView" />
+    -->
     <item android:id="@+id/action_settings"
           android:title="Settings" />
+    <item android:id="@+id/refresh"
+      android:icon="@drawable/refresh"
+      android:showAsAction="collapseActionView|ifRoom"/>
+   	<item android:id="@+id/order_by_likes"
+      android:icon="@drawable/shape_heart"
+      android:showAsAction="collapseActionView|ifRoom"/>
 </menu>

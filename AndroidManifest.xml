@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.yasejuega"
+    package="com.yasejuega.yasejuega"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/splash"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme">
         
@@ -18,14 +19,22 @@
 	      android:name="android.app.default_searchable"
 	      android:value=".SearchResultsActivity" />
    		
-        <activity
-            android:name="com.example.yasejuega.MainActivity"
-            android:label="@string/app_name" >
+   		<activity
+            android:name="com.yasejuega.yasejuega.SplashScreenActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.yasejuega.yasejuega.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+
             <!--  points to the res/xml/searchable.xml file, so that your application knows where to find it -->
             <meta-data android:name="android.app.searchable"
             android:resource="@xml/searchable" />
