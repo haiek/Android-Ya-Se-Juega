@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity$Fragment2" >
+    tools:context=".MainActivity$Fragment2" 
+    android:background="#F5F5F5" >
 	
     <!-- Adding the autoComplete for search -->
 	<AutoCompleteTextView
@@ -15,12 +16,21 @@
 	    android:layout_marginBottom="5dp"
 	    android:layout_marginRight="15dp"
 	    android:layout_marginLeft="15dp" />
-
+	
+	<TextView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autocomplete_country"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Cargando..." />
+	
     <ListView
         android:id="@+id/listView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/autocomplete_country" 
+        android:layout_below="@id/loading" 
         android:divider="@null"
 		android:dividerHeight="0dp"
 		android:scrollbars="none" >

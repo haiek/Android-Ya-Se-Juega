@@ -2,6 +2,7 @@ package com.yasejuega.yasejuega;
 
 import java.util.Locale;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.yasejuega.yasejuega.Fragment2.EndlessScrollListener;
 
 import android.app.SearchManager;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 
 public class MainActivity extends FragmentActivity {
 
@@ -60,7 +62,23 @@ public class MainActivity extends FragmentActivity {
 		mViewPager.setCurrentItem(1);
 	
 	}
-
+	
+	//For Google Analytics
+	  @Override
+	  public void onStart() {
+	    super.onStart();
+	    // The rest of your onStart() code.
+	    EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	  }
+	
+	  @Override
+	  public void onStop() {
+	    super.onStop();
+	    // The rest of your onStop() code.
+	    EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+	  }
+	//Finish Google Analytics
+	  
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -88,12 +106,16 @@ public class MainActivity extends FragmentActivity {
 	        case R.id.refresh:
 	        	//Refresh Fragment2
 	            ((Fragment2) this.getActiveFragment(1)).loadCategory("Inicio");
+	            //Remove text from search input.
+	            ((Fragment2) this.getActiveFragment(1)).remuveTextFromSearch();
 	        	//Refresh Fragment3
 	            ((Fragment3) this.getActiveFragment(2)).refresh();
 	            return true;
 	        case R.id.order_by_likes:
 	    		//Order Fragment2 by likes
 	    		((Fragment2) this.getActiveFragment(1)).orderByLike();
+	    		//Remove text from search input.
+	    		((Fragment2) this.getActiveFragment(1)).remuveTextFromSearch();
 	    		//Order Fragment3 by likes
 	    		((Fragment3) this.getActiveFragment(2)).orderByLike();
 	            return true;

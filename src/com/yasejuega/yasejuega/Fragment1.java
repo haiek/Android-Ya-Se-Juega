@@ -8,6 +8,11 @@ import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
+import com.google.analytics.tracking.android.Tracker;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,11 +34,27 @@ public class Fragment1 extends Fragment {
     	//It's link to the fragment1.xml file
         View root = inflater.inflate(R.layout.fragment1, container, false);
         
+        //Google Analytics
+    	// v3
+    	Tracker v3EasyTracker = EasyTracker.getInstance(getActivity());
+
+    	// Set the screen name on the tracker so that it is used in all hits sent from this screen.
+    	v3EasyTracker.set(Fields.SCREEN_NAME, "Categorias");
+
+    	// Send a screenview.
+    	v3EasyTracker.send(MapBuilder
+    	  .createAppView()
+    	  .build()
+    	);
+    	//Finish Google Analytics
+        
         //to use findViewById you need to use root before to let the code know you are in this fragment.
         lv1 =(ListView) root.findViewById(R.id.listView1);
         
         //CALLING THE JSON METHOD
         setUpCategories();
+        
+        //EasyTracker.getInstance().setContext(this);
         
         return root;
 

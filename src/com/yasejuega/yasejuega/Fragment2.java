@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
+import com.google.analytics.tracking.android.Tracker;
+
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +37,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class Fragment2 extends Fragment{
@@ -42,6 +48,9 @@ public class Fragment2 extends Fragment{
     //Declare this var for the load more
     private int pos;
     public boolean setAdapterYes;
+    
+    //For loading while fetching rumors
+    public static TextView loading;
     
     private int mLastFirstVisibleItem;
     private boolean mIsScrollingUp;
@@ -57,7 +66,23 @@ public class Fragment2 extends Fragment{
     	
     	//It's link to the fragment2.xml file
         View root = inflater.inflate(R.layout.fragment2, container, false);
+        
+        //Google Analytics
+    	Tracker v3EasyTracker = EasyTracker.getInstance(getActivity());
 
+    	// Set the screen name on the tracker so that it is used in all hits sent from this screen.
+    	v3EasyTracker.set(Fields.SCREEN_NAME, "Web");
+
+    	// Send a screenview.
+    	v3EasyTracker.send(MapBuilder
+    	  .createAppView()
+    	  .build()
+    	);
+    	//Finish Google Analytics
+    	
+    	//Show loading text while fetching data
+    	loading = (TextView) root.findViewById(R.id.loading);
+    	
         //Assign the value 9, so will bring the the 10 to 19 rumors
         pos = 9;
         selection = "Inicio";
@@ -67,6 +92,7 @@ public class Fragment2 extends Fragment{
         lv2.setOnScrollListener(new EndlessScrollListener());
         
         adapter = new CustomAdapter(getActivity(), R.id.listView2, fetch, "fragment2");
+
         lv2.setAdapter(adapter);
         
         //CALLING THE JSON METHOD
@@ -84,11 +110,13 @@ public class Fragment2 extends Fragment{
         return root;
 
     }
+
     
     //GET RUMORS FORM DB IN THE BACKGORUND AND PRINT THEM IN THE FRAGMENT USING CUSTOMADAPTER AND CUSTOM CLASS
     public void setUpRumors(String categoria, int pos) {
     	//Create a GetRumor object and send the CustomAdapter created in onCreateView as a parameter.
     	GetRumors fromDB = new GetRumors(adapter);
+    	
     	//Send the URL where to fetch the rumors.
     	fromDB.execute("http://yasejuega.com/Android/loadRumors.php?categoria="+categoria+"&pos="+pos);
     	Log.i("***URL", "http://yasejuega.com/Android/loadRumors.php?categoria="+categoria+"&pos="+pos);
@@ -283,6 +311,8 @@ public class Fragment2 extends Fragment{
     	//Checking the category selected.
     	Log.i("category", selection);
     	loadCategory(selection);
+    	//Add category name to search input.
+    	textViewSearch.setText(pressed+" ");
     }
     
     //Order rumors by likes
@@ -292,6 +322,11 @@ public class Fragment2 extends Fragment{
     	lv2.setAdapter(adapter);
     	lv2.setOnScrollListener(new EndlessScrollListener());
     	setUpRumors("orderByLikeWeb", 0);
+    }
+    
+    //Remove text from search input.
+    public void remuveTextFromSearch() {
+    	textViewSearch.setText("");
     }
     
 }

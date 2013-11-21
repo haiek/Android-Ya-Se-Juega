@@ -10,14 +10,21 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 public class GetRumors extends AsyncTask<String, Void, String> {
+	
 	//Create a CustomAdapter object.
 	CustomAdapter adapter;
 	
 	public GetRumors(CustomAdapter fragmentAdapter) {
 		//Assign the value from the parameter (now working with the fragment adapter).
 		adapter = fragmentAdapter;
+		
+	    //Show loading textfield.
+		Fragment2.loading.setVisibility(View.VISIBLE);
+		//Fragment3 is done in fragment3.java because here triggers error
+		//Fragment3.loadingTwitter.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -59,6 +66,11 @@ public class GetRumors extends AsyncTask<String, Void, String> {
 	protected void onPostExecute(String json) {
 		super.onPostExecute(json);
 		try {
+			
+	        //Hide loading textfield.
+	    	Fragment2.loading.setVisibility(View.GONE);
+	    	Fragment3.loadingTwitter.setVisibility(View.GONE);
+	    	
 			putRumor(json);
 			//adapter.notifyDataSetChanged();
 		} catch (JSONException e) {
@@ -69,6 +81,7 @@ public class GetRumors extends AsyncTask<String, Void, String> {
 	
     //Put the category in the ListView
     void putRumor(String json) throws JSONException {
+        
     	//Since the PHP is returning a JSON object, I use JSONObject to get it.
     	JSONObject jObject = new JSONObject(json);
     	//See what hat i'm getting from the DB through JSON.
